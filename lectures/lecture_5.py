@@ -26,4 +26,17 @@ def cB(t:float,k:float)->float:
 plt.plot(t,cA(t,k), label= 'cA')
 plt.plot(t,cB(t,k), label = 'cB')
 plt.legend()
-plt.show()
+# plt.show()
+
+"""
+Rewriting implicit equation as explicit eq:
+...
+
+An ODE is easiest to solve when its first order and autonomous 
+
+
+scipy optimze, is a root finding algorithem, it will try to make the function equal to zero. 
+instead of this you can use smth like newton-raphson or bisection method (look at Assignment_Q1_L3.ipynb)
+
+
+"""
