@@ -117,6 +117,6 @@ if Pe>>1: convection is the dominating phenonmena
 
 general rule: if Pe > 2: use upwind/downwind method
 if Pe<2 you can use cental diff method
-
+l
 
 """
