@@ -87,37 +87,22 @@ def define_B_DB(b_DF:np.ndarray, yk:np.ndarray, fo:float)->np.ndarray:
     return B_DB
 
 
+# creation of the spare matrix 
+def define_A_DB_sparse(nx:int, fo:float)->csc_matrix:
+    """
+    Create sparse matrix for Dirichlet boundary conditions using
+    implicit Euler for the 1D heat equation.
+    """
 
+    matrix_size = nx - 2
+    main_diag = np.ones(matrix_size) * (1 + 2*fo)
+    off_diag  = np.ones(matrix_size) * (-fo)   # <-- FIXED SIGN HERE
 
-######### making sparse matricies:
+    data = [off_diag, main_diag, off_diag]
+    diag = np.array([-1, 0, 1])
 
-# def define_A_DB_sparse(nx:int, fo:float)->csc_matrix:
-#     """
-#     about the function:
-
-#     """
-
-#     matrix_size = nx -2
-#     main_diag = np.ones(matrix_size) *(1/fo-2)
-#     off_diag = np.ones(matrix_size)
-#     data = np.vstack([off_diag,main_diag,off_diag])
-#     diag = np.array([-1,0,1])
-
-#     A_DB = spdiags(data,diag,matrix_size, matrix_size).toarray()
-#     return A_DB
-
-def define_A_DB_sparse(nx: int, fo: float) -> csc_matrix:
-    m = nx - 2
-
-    main_diag = (1 + 2*fo) * np.ones(m)
-    off_diag  = (-fo) * np.ones(m-1)
-
-    data = np.vstack([off_diag, main_diag, off_diag])
-    diags = np.array([-1, 0, 1])
-
-    A = spdiags(data, diags, m, m).tocsc()
-    return A
-
+    A_DB = spdiags(data, diag, matrix_size, matrix_size).tocsc()
+    return A_DB
 
 fo =0.5
 mat = define_A_DB_sparse(10,fo)
